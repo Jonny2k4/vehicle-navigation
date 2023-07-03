@@ -29,18 +29,9 @@ In this repository we implement UNET, U2NET, UNET++, VNET, DNCNN, and MOD-UNET u
 |  | [**keras_unet_collection**](https://github.com/yingkaisha/keras-unet-collection) |  |
 | `kuc_r2unet`   | R2U-Net         | [Alom et al. (2018)](https://arxiv.org/abs/1802.06955) |
 | `kuc_attunet`  | Attention U-net | [Oktay et al. (2018)](https://arxiv.org/abs/1804.03999) |
-| `kuc_restunet` | ResUnet-a       | [Diakogiannis et al. (2020)](https://doi.org/10.1016/j.isprsjprs.2020.01.013) |
-| `kuc_unet3pp` | UNET 3+        | [Huang et al. (2020)](https://arxiv.org/abs/2004.08790) |
-| `kuc_tensnet` | Trans-UNET       | [Chen et al. (2021)](https://arxiv.org/abs/2102.04306) |
-| `kuc_swinnet` | Swin-UNET       | [Hu et al. (2021)](https://arxiv.org/abs/2105.05537) |
-| `kuc_vnet`      | V-net (modified for 2-d inputs) | [Milletari et al. (2016)](https://arxiv.org/abs/1606.04797) |
-| `kuc_unetpp` | U-net++         | [Zhou et al. (2018)](https://link.springer.com/chapter/10.1007/978-3-030-00889-5_1) |
-| `kuc_u2net`     | U^2-Net         | [Qin et al. (2020)](https://arxiv.org/abs/2005.09007) |
 |  | [**segmentation-models**](https://github.com/yingkaisha/keras-unet-collection) |  |
-| `sm_unet`      | U-net           | [Ronneberger et al. (2015)](https://link.springer.com/chapter/10.1007/978-3-319-24574-4_28) |
 | `sm_linknet`     | LINK-Net         | [Chaurasia et al. (2017)](https://arxiv.org/pdf/1707.03718.pdf) |
 | `sm_fpn`     | FPS-Net         | [Xiao et al. (2021)](https://arxiv.org/pdf/2103.00738.pdf) |
-| `sm_fpn`     | PSP-Net         | [Zhao et al. (2017)](https://arxiv.org/pdf/1612.01105.pdf) |
 
 ## **Setup**
 
