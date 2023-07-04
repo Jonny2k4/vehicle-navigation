@@ -8,7 +8,7 @@ width: 400
 # Training
 # ----------------------------------------------------------------------------------------------
 model_name: unet
-batch_size: 32   #64
+batch_size: 32
 epochs: 500
 learning_rate: !!float 3e-4
 val_plot_epoch: 10
@@ -19,27 +19,25 @@ trainOn: all
 
 # Experiment Setup
 # ----------------------------------------------------------------------------------------------
-# regular/cls_balance/patchify/patchify_WOC
-# cfr = regular, cfr_cb = cls_balance, phr = patchify, phr_cb = patchify_WOC
 experiment: phr_cb
 
 # Patchify (phr & phr_cb experiment)
 # ----------------------------------------------------------------------------------------------
 patchify: True
-patch_class_balance: True # whether to use class balance while doing patchify
+patch_class_balance: True
 patch_size: 256 # height = width, anyone is suitable
 stride: 64
-p_train_dir: json/train_patch_phr_cb_256.json
-p_valid_dir: json/valid_patch_phr_cb_256.json
-p_test_dir: json/test_patch_phr_cb_256.json
-p_eval_dir: json/eval_patch_phr_cb_256.json
+p_train_dir: <directory>
+p_valid_dir: <directory>
+p_test_dir: <directory>
+p_eval_dir: <directory>
 
 # Dataset
 # --------------------------------mask--------------------------------------------------------------
-weights: False # False if cfr, True if cfr_cb
+weights: False
 balance_weights: [1.8, 8.2]
-dataset_dir: /mnt/hdd2/mdsamiul/archive/road_segmentation/data/    # /mnt/hdd2/mdsamiul/archive/road_segmentation/data
-root_dir: /mnt/hdd2/mdsamiul/archive/road_segmentation/
+dataset_dir: <directory>
+root_dir: <directory>
 train_size: 0.8
 train_dir: train.csv
 valid_dir: valid.csv
@@ -54,11 +52,10 @@ lr: True
 tensorboard: True
 early_stop: False
 checkpoint: True
-patience: 300 # required for early_stopping, if accuracy does not change for 500 epochs, model will stop automatically
+patience: 300 # required for early_stopping, if accuracy does not change for patience epochs, model will stop automatically
 
 # Evaluation
 # ----------------------------------------------------------------------------------------------
-#load_model_name : m.hdf5
 load_model_name: kuc_r2unet_ex_phr_cb_ep_500_24-Nov-22.hdf5
 load_model_dir: None #  If None, then by befault 'root_dir/model/model_name/load_model_name'
 evaluation: False # default evaluation value will not work
