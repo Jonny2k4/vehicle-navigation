@@ -8,9 +8,6 @@ from tensorflow import keras
 from tensorflow.keras.models import load_model
 from utils import get_config_yaml, create_paths, patch_show_predictions, frame_to_video
 
-
-# Parsing variable
-# ----------------------------------------------------------------------------------------------
 parser = argparse.ArgumentParser()
 parser.add_argument("--dataset_dir")
 parser.add_argument("--model_name")
@@ -34,8 +31,7 @@ else:
     args.evaluation = False
 
 t0 = time.time()
-# Set up test configaration
-# ----------------------------------------------------------------------------------------------
+
 config = get_config_yaml('project/config.yaml', vars(args))
 
 if config["evaluation"]:
@@ -43,47 +39,30 @@ if config["evaluation"]:
 else:
     create_paths(config, test = True)
 
-
-
-# setup gpu
-# ----------------------------------------------------------------------------------------------
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = config["gpu"]
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
-# Load Model
-# ----------------------------------------------------------------------------------------------
 print("Loading model {} from {}".format(
     config['load_model_name'], config['load_model_dir']))
 # with strategy.scope(): # if multiple GPU is required
 model = load_model(os.path.join(
     config['load_model_dir'], config['load_model_name']), compile=False)
 
-
-# Dataset
-# ----------------------------------------------------------------------------------------------
 test_dataset = get_test_dataloader(config)
 
-# Prediction Plot
-# ----------------------------------------------------------------------------------------------
 print("Saving test/evaluation predictions...")
 print("call patch_show_predictions")
 patch_show_predictions(test_dataset, model, config)
 
-
-# Evaluation Score
-# ----------------------------------------------------------------------------------------------
 if not config['evaluation']:
     metrics = list(get_metrics(config).values())
     adam = keras.optimizers.Adam(learning_rate=config['learning_rate'])
     model.compile(optimizer=adam, loss=focal_loss(), metrics=metrics)
     model.evaluate(test_dataset)
 
-# Frame to video
-# ----------------------------------------------------------------------------------------------
 if config["video_path"] != 'None':
     fname = config['dataset_dir'] + 'prediction.avi'
     frame_to_video(config, fname, fps=30)
-
 
 print("training time sec: {}".format((time.time()-t0)))
