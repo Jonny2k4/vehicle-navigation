@@ -16,21 +16,8 @@ import moviepy.video.io.ImageSequenceClip
 
 from dataset import read_img, transform_data
 
-
-# Callbacks and Prediction during Training
-# ----------------------------------------------------------------------------------------------
 class SelectCallbacks(keras.callbacks.Callback):
     def __init__(self, val_dataset, model, config):
-        """
-        Summary:
-            callback class for validation prediction and create the necessary callbacks objects
-        Arguments:
-            val_dataset (object): MyDataset class object
-            model (object): keras.Model object
-            config (dict): configuration dictionary
-        Return:
-            class object
-        """
         super(keras.callbacks.Callback, self).__init__()
 
         self.val_dataset = val_dataset
@@ -39,14 +26,6 @@ class SelectCallbacks(keras.callbacks.Callback):
         self.callbacks = []
 
     def lr_scheduler(self, epoch):
-        """
-        Summary:
-            learning rate decrease according to the model performance
-        Arguments:
-            epoch (int): current epoch
-        Return:
-            learning rate
-        """
         drop = 0.5
         epoch_drop = self.config['epochs'] / 8.
         lr = self.config['learning_rate'] * \
@@ -54,28 +33,11 @@ class SelectCallbacks(keras.callbacks.Callback):
         return lr
 
     def on_epoch_end(self, epoch, logs={}):
-        """
-        Summary:
-            call after every epoch to predict mask
-        Arguments:
-            epoch (int): current epoch
-        Output:
-            save predict mask
-        """
         if (epoch % self.config['val_plot_epoch'] == 0):  # every after certain epochs the model will predict mask
             # save image/images with their mask, pred_mask and accuracy
             val_show_predictions(self.val_dataset, self.model, self.config)
 
     def get_callbacks(self, val_dataset, model):
-        """
-        Summary:
-            creating callbacks based on configuration
-        Arguments:
-            val_dataset (object): MyDataset class object
-            model (object): keras.Model class object
-        Return:
-            list of callbacks
-        """
         if self.config['csv']:  # save all type of accuracy in a csv file for each epoch
             self.callbacks.append(keras.callbacks.CSVLogger(os.path.join(
                 self.config['csv_log_dir'], self.config['csv_log_name']), separator=",", append=False))
@@ -102,31 +64,13 @@ class SelectCallbacks(keras.callbacks.Callback):
 
         return self.callbacks
 
-
-# Sub-ploting and save
-# ----------------------------------------------------------------------------------------------
-
-
 def display(display_list, idx, directory, score, exp, evaluation=False):
-    """
-    Summary:
-        save all images into single figure
-    Arguments:
-        display_list (dict): a python dictionary key is the title of the figure
-        idx (int) : image index in dataset object
-        directory (str) : path to save the plot figure
-        score (float) : accuracy of the predicted mask
-        exp (str): experiment name
-    Return:
-        save images figure into directory
-    """
     plt.figure(figsize=(12, 8))  # set the figure size
     title = list(display_list.keys())  # get tittle
 
-    # plot all the image in a subplot
     for i in range(len(display_list)):
         plt.subplot(1, len(display_list), i+1)
-        if title[i] == "DEM":  # for plot nasadem image channel
+        if title[i] == "DEM":
             ax = plt.gca()
             hillshade = es.hillshade(display_list[title[i]], azimuth=180)
             ep.plot_bands(
