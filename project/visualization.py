@@ -8,22 +8,11 @@ from utils import get_config_yaml
 from matplotlib import pyplot as plt
 from dataset import read_img
 
-# setup gpu
 os.environ["CUDA_DEVICE_ORDER"] = "PCI_BUS_ID"
 os.environ["CUDA_VISIBLE_DEVICES"] = "2"
 os.environ['TF_FORCE_GPU_ALLOW_GROWTH'] = 'true'
 
-
 def class_balance_check(patchify, data_dir):
-    """
-    Summary:
-        checking class percentage in full dataset
-    Arguments:
-        patchify (bool): TRUE if want to check class balance for patchify experiments
-        data_dir (str): directory where data files save
-    Return:
-        class percentage
-    """
     if patchify:
         with open(data_dir, 'r') as j:
             train_data = json.loads(j.read())
@@ -64,25 +53,13 @@ def class_balance_check(patchify, data_dir):
     print("Class percentage:")
     for key, val in class_name.items():
         print("class pixel: {} = {}".format(key, val))
-        
-
-
-def check_height_width(data_dir):
-    """
-    Summary:
-        check unique hight and width of images from dataset
-    Arguments:
-        data_dir (str): path to csv file
-    Return:
-        print all the unique height and width
-    """
     
+def check_height_width(data_dir):
     data = pd.read_csv(data_dir)
     # removing UU or UMM or UM
     # data = data[data['feature_ids'].str.contains('uu_00') == False]
     data = data[data['feature_ids'].str.contains('umm_00') == False]
     data = data[data['feature_ids'].str.contains('um_00') == False]
-    
     
     print("Dataset:  ", data.shape)
     
@@ -107,16 +84,6 @@ def check_height_width(data_dir):
 
 
 def display_all(data):
-    """
-    Summary:
-        save all images into single figure
-    Arguments:
-        data : data file holding images path
-        directory (str) : path to save images
-    Return:
-        save images figure into directory
-    """
-    
     pathlib.Path((config['visualization_dir']+'display')).mkdir(parents = True, exist_ok = True)
 
     for i in range(len(data)):
@@ -126,7 +93,6 @@ def display_all(data):
         display_list = {
                      "image":image,
                      "label":mask}
-
 
         plt.figure(figsize=(12, 8))
         title = list(display_list.keys())
@@ -142,14 +108,3 @@ def display_all(data):
         plt.clf()
         plt.cla()
         plt.close()
-    
-
-if __name__ == '__main__':
-
-    config = get_config_yaml('project/config.yaml', {})
-    pathlib.Path(config['visualization_dir']).mkdir(
-        parents=True, exist_ok=True)
-    
-    # # display all
-    data = pd.read_csv('/mnt/hdd2/mdsamiul/archive/road_segmentation/data/test.csv')
-    display_all(data)
