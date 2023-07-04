@@ -39,20 +39,20 @@ print("Experiment = {}".format(str(config['experiment'])))
 
 train_dataset, val_dataset = get_train_val_dataloader(config)
 
-metrics = list(get_metrics(config).values())  # [list] required for new model
-custom_obj = get_metrics(config) # [dictionary] required for transfer learning & fine tuning
+metrics = list(get_metrics(config).values())
+custom_obj = get_metrics(config)
 
 learning_rate = 0.001
 weight_decay = 0.0001
 adam = tfa.optimizers.AdamW(
     learning_rate=learning_rate, weight_decay=weight_decay)
 
-loss = tf.keras.losses.BinaryCrossentropy(from_logits=True) # required for new model
-custom_obj['loss'] = focal_loss() # required for transfer learning/fine-tuning
+loss = tf.keras.losses.BinaryCrossentropy(from_logits=True)
+custom_obj['loss'] = focal_loss()
 
 if (os.path.exists(os.path.join(config['load_model_dir'], config['load_model_name']))) and config['transfer_lr']:
     print("Build model for transfer learning..")
-    # load model and compile
+    
     model = load_model(os.path.join(
         config['load_model_dir'], config['load_model_name']), custom_objects=custom_obj, compile=True)
 
