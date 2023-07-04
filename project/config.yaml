@@ -2,13 +2,12 @@
 # ----------------------------------------------------------------------------------------------
 in_channels: 3
 num_classes: 2
-height: 400 #for PHR-CB experiment patch size = height = width
+height: 400
 width: 400
 
 # Training
 # ----------------------------------------------------------------------------------------------
-# mnet = fapnet, unet, ex_mnet*, dncnn, u2net, vnet, unet++, sm_unet, sm_linknet, sm_fpn, sm_pspnet*, kuc_vnet, kuc_unet3pp, kuc_r2unet,# kuc_unetpp*, 'kuc_restunet', kuc_tensnet*, 'kuc_swinnet', kuc_u2net, kuc_attunet, ad_unet, transformer
-model_name: kuc_r2unet
+model_name: unet
 batch_size: 32   #64
 epochs: 500
 learning_rate: !!float 3e-4
@@ -16,7 +15,7 @@ val_plot_epoch: 10
 augment: False
 transfer_lr: False
 gpu: !!str 3
-trainOn: all  # ignore it
+trainOn: all
 
 # Experiment Setup
 # ----------------------------------------------------------------------------------------------
@@ -34,6 +33,7 @@ p_train_dir: json/train_patch_phr_cb_256.json
 p_valid_dir: json/valid_patch_phr_cb_256.json
 p_test_dir: json/test_patch_phr_cb_256.json
 p_eval_dir: json/eval_patch_phr_cb_256.json
+
 # Dataset
 # --------------------------------mask--------------------------------------------------------------
 weights: False # False if cfr, True if cfr_cb
@@ -45,6 +45,7 @@ train_dir: train.csv
 valid_dir: valid.csv
 test_dir: test.csv
 eval_dir: eval.csv
+
 # Logger/Callbacks
 # ----------------------------------------------------------------------------------------------
 csv: True
