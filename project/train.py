@@ -60,7 +60,6 @@ if (os.path.exists(os.path.join(config['load_model_dir'], config['load_model_nam
     model.compile(optimizer=adam, loss=loss, metrics=metrics)
 
 else:
-    # fine-tuning
     if (os.path.exists(os.path.join(config['load_model_dir'], config['load_model_name']))):
         print("Resume training from model checkpoint {}...".format(
             config['load_model_name']))
