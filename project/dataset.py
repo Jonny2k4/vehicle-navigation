@@ -9,7 +9,6 @@ import matplotlib
 import cv2
 from sklearn.model_selection import train_test_split
 from tensorflow.keras.utils import to_categorical, Sequence
-# from utils import video_to_frame
 matplotlib.use('Agg')
 
 
@@ -116,7 +115,7 @@ def video_to_frame(config):
     success,image = vidcap.read()
     count = 0
     while success:
-        cv2.imwrite(config['dataset_dir'] + '/video_frame' + '/frame_%06d.jpg' % count, image)     # save frame as JPEG file      
+        cv2.imwrite(config['dataset_dir'] + '/video_frame' + '/frame_%06d.jpg' % count, image)     
         success,image = vidcap.read() 
         count += 1
         
