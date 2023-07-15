@@ -15,16 +15,6 @@ from tensorflow.keras.layers import LeakyReLU, add, Conv2D, PReLU, ReLU, Concate
 # ----------------------------------------------------------------------------------------------
 
 def unet(config):
-    
-    """
-        Summary:
-            Create UNET model object
-        Arguments: 
-            Model configuration from config.yaml
-        Return:
-            Keras.model object
-    """
-    
     inputs = Input((config['height'], config['width'], config['in_channels']))
  
     #Contraction path
@@ -88,19 +78,8 @@ def unet(config):
 # Modification UNET Model / FAPNET
 # ----------------------------------------------------------------------------------------------
 def mod_unet(config):
-    
-    """
-        Summary:
-            Create MNET model object
-        Arguments: 
-            Model configuration from config.yaml
-        Return:
-            Keras.model object
-    """
-    
     inputs = Input((config['height'], config['width'], config['in_channels']))
     
-    #Contraction path
     c1 = Conv2D(16, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(inputs)
     c1 = Dropout(0.2)(c1)  # Original 0.1
     c1 = Conv2D(16, (3, 3), activation='relu', kernel_initializer='he_normal', padding='same')(c1)
