@@ -1,12 +1,8 @@
-# Image Input/Output
-# ----------------------------------------------------------------------------------------------
 in_channels: 3
 num_classes: 2
 height: 400
 width: 400
 
-# Training
-# ----------------------------------------------------------------------------------------------
 model_name: unet
 batch_size: 32
 epochs: 500
@@ -17,12 +13,8 @@ transfer_lr: False
 gpu: !!str 3
 trainOn: all
 
-# Experiment Setup
-# ----------------------------------------------------------------------------------------------
 experiment: phr_cb
 
-# Patchify (phr & phr_cb experiment)
-# ----------------------------------------------------------------------------------------------
 patchify: True
 patch_class_balance: True
 patch_size: 256 # height = width, anyone is suitable
@@ -32,8 +24,6 @@ p_valid_dir: <directory>
 p_test_dir: <directory>
 p_eval_dir: <directory>
 
-# Dataset
-# --------------------------------mask--------------------------------------------------------------
 weights: False
 balance_weights: [1.8, 8.2]
 dataset_dir: <directory>
@@ -44,24 +34,18 @@ valid_dir: valid.csv
 test_dir: test.csv
 eval_dir: eval.csv
 
-# Logger/Callbacks
-# ----------------------------------------------------------------------------------------------
 csv: True
 val_pred_plot: True
 lr: True
 tensorboard: True
 early_stop: False
 checkpoint: True
-patience: 300 # required for early_stopping, if accuracy does not change for patience epochs, model will stop automatically
+patience: 300
 
-# Evaluation
-# ----------------------------------------------------------------------------------------------
 load_model_name: kuc_r2unet_ex_phr_cb_ep_500_24-Nov-22.hdf5
-load_model_dir: None #  If None, then by befault 'root_dir/model/model_name/load_model_name'
-evaluation: False # default evaluation value will not work
-video_path: None    # If None, then by default 'root_dir/data/video_frame'
+load_model_dir: None
+evaluation: False
+video_path: None
 
-# Prediction Plot
-# ----------------------------------------------------------------------------------------------
-plot_single: False # if True, then only index x_test image will plot # default plot_single  value will not work
-index: -1 #170 # by default -1 means random image else specific index image provide by user
+plot_single: False
+index: -1
